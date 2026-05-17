@@ -1,0 +1,76 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="FractionTrainer.MainWindow"
+        Title="Тренажёр собрать дробь"
+        Width="980"
+        Height="700"
+        MinWidth="820"
+        MinHeight="620"
+        WindowStartupLocation="CenterScreen"
+        KeyDown="Window_KeyDown"
+        Background="#F3F6FB">
+  <Grid RowDefinitions="72,*,76">
+    <Border Grid.Row="0" Background="#1D4ED8" Padding="24,14">
+      <Grid ColumnDefinitions="*,Auto">
+        <StackPanel>
+          <TextBlock Text="Тренажёр собрать дробь" Foreground="White" FontSize="24" FontWeight="Bold" />
+          <TextBlock Text="F1 - справка" Foreground="#DBEAFE" FontSize="13" />
+        </StackPanel>
+        <TextBlock x:Name="ScoreText" Grid.Column="1" Text="Счёт: 0" Foreground="White" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center" />
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="1" ColumnDefinitions="280,*" Margin="22">
+      <Border Background="White" CornerRadius="8" Padding="18" BoxShadow="0 4 16 #22000000">
+        <StackPanel Spacing="14">
+          <TextBlock Text="Настройки" FontSize="20" FontWeight="Bold" />
+
+          <TextBlock Text="Режим" FontWeight="SemiBold" />
+          <ComboBox x:Name="ModeCombo" SelectedIndex="0" SelectionChanged="SettingsChanged">
+            <ComboBoxItem Content="Обучение" />
+            <ComboBoxItem Content="Проверка знаний" />
+          </ComboBox>
+
+          <TextBlock Text="Сложность" FontWeight="SemiBold" />
+          <ComboBox x:Name="DifficultyCombo" SelectedIndex="1" SelectionChanged="SettingsChanged">
+            <ComboBoxItem Content="Лёгкая" />
+            <ComboBoxItem Content="Средняя" />
+            <ComboBoxItem Content="Сложная" />
+          </ComboBox>
+
+          <Separator />
+          <TextBlock x:Name="TargetText" Text="Дробь: 1/2" FontSize="30" FontWeight="Bold" Foreground="#1D4ED8" HorizontalAlignment="Center" />
+          <TextBlock x:Name="SelectedText" Text="Выбрано: 0/4" FontSize="16" HorizontalAlignment="Center" />
+
+          <Border Background="#EFF6FF" CornerRadius="8" Padding="12">
+            <StackPanel Spacing="8">
+              <TextBlock Text="Количество долей" FontWeight="SemiBold" HorizontalAlignment="Center" />
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                <Button x:Name="DecreaseButton" Content="- доля" Click="DecreaseButton_Click" />
+                <TextBlock x:Name="PartsText" Text="4" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" MinWidth="42" TextAlignment="Center" />
+                <Button x:Name="IncreaseButton" Content="+ доля" Click="IncreaseButton_Click" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <Border x:Name="HintPanel" Background="#ECFDF5" CornerRadius="8" Padding="12">
+            <TextBlock x:Name="HintText" TextWrapping="Wrap" Foreground="#047857" />
+          </Border>
+
+          <Button Content="Новая дробь" Click="NewRoundButton_Click" />
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="1" Background="White" CornerRadius="8" Padding="20" Margin="18,0,0,0" BoxShadow="0 4 16 #22000000">
+        <Canvas x:Name="FractionCanvas" Background="#FFFFFF" />
+      </Border>
+    </Grid>
+
+    <Border Grid.Row="2" Background="#0F172A" Padding="22,14">
+      <Grid ColumnDefinitions="*,Auto">
+        <TextBlock x:Name="StatusText" Text="Нажимай на секторы, чтобы собрать нужную дробь." Foreground="White" FontSize="16" VerticalAlignment="Center" />
+        <Button Grid.Column="1" Classes="primary" Content="Проверить" Click="CheckButton_Click" />
+      </Grid>
+    </Border>
+  </Grid>
+</Window>
