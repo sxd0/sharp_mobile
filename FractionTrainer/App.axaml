@@ -13,5 +13,20 @@
       <Setter Property="CornerRadius" Value="8" />
       <Setter Property="Padding" Value="14,8" />
     </Style>
+    <Style Selector="Button.fractionAction">
+      <Setter Property="Background" Value="#25AEEA" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="Padding" Value="14,9" />
+      <Setter Property="MinWidth" Value="96" />
+    </Style>
+    <Style Selector="Button.successAction">
+      <Setter Property="Background" Value="#46C800" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="Padding" Value="16,9" />
+    </Style>
   </Application.Styles>
 </Application>

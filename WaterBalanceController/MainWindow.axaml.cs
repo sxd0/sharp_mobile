@@ -7,6 +7,7 @@ namespace WaterBalanceController;
 
 public partial class MainWindow : Window
 {
+    private const double BottleHeight = 260;
     private readonly WaterStorage storage = new();
     private readonly WaterTracker tracker;
 
@@ -23,6 +24,8 @@ public partial class MainWindow : Window
         TotalText.Text = $"{tracker.TodayTotal} / {tracker.Settings.DailyGoal} мл";
         PercentText.Text = $"{tracker.ProgressPercent:0}%";
         ProgressBar.Value = tracker.ProgressPercent;
+        BottleFill.Height = BottleHeight * tracker.ProgressPercent / 100.0;
+        BottleText.Text = $"{tracker.ProgressPercent:0}%";
         GoalInput.Value = tracker.Settings.DailyGoal;
 
         SmallButton.Content = $"+{tracker.Settings.QuickSmall}";
@@ -62,7 +65,13 @@ public partial class MainWindow : Window
     private void SaveGoal_Click(object? sender, RoutedEventArgs e)
     {
         tracker.UpdateGoal((int)(GoalInput.Value ?? tracker.Settings.DailyGoal));
-        StatusText.Text = "Цель на день сохранена.";
+        StatusText.Text = $"Главная цель изменена: {tracker.Settings.DailyGoal} мл.";
+    }
+
+    private void ResetToday_Click(object? sender, RoutedEventArgs e)
+    {
+        tracker.ResetToday();
+        StatusText.Text = "Статистика за сегодня сброшена.";
     }
 
     private async void Window_KeyDown(object? sender, KeyEventArgs e)
@@ -79,7 +88,7 @@ public partial class MainWindow : Window
                 {
                     Margin = new Avalonia.Thickness(20),
                     TextWrapping = Avalonia.Media.TextWrapping.Wrap,
-                    Text = "Добавляй каждую выпитую порцию воды. Прогресс считается относительно дневной цели.\n\nCLI: dotnet run -- --add 250\nCLI: dotnet run -- --status"
+                    Text = "Добавляй каждую выпитую порцию воды. Бутылка заполняется относительно главной дневной цели.\n\nCLI: dotnet run -- --add 250\nCLI: dotnet run -- --status"
                 }
             };
 

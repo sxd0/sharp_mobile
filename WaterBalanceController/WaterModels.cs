@@ -64,4 +64,10 @@ public sealed class WaterTracker
         Settings.DailyGoal = Math.Clamp(milliliters, 500, 6000);
         Changed?.Invoke(this, EventArgs.Empty);
     }
+
+    public void ResetToday()
+    {
+        Entries.RemoveAll(entry => entry.Time.Date == DateTime.Today);
+        Changed?.Invoke(this, EventArgs.Empty);
+    }
 }

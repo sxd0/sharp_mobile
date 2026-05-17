@@ -12,6 +12,7 @@ public partial class MainWindow : Window
 {
     private readonly List<Polygon> sectors = [];
     private FractionGame game;
+    private bool waitsForNextRound;
 
     public MainWindow()
     {
@@ -49,13 +50,16 @@ public partial class MainWindow : Window
 
     private void UpdateScreen()
     {
-        TargetText.Text = $"Дробь: {game.CurrentTask.Target}";
+        waitsForNextRound = false;
+        NumeratorText.Text = game.CurrentTask.Target.Numerator.ToString();
+        DenominatorText.Text = game.CurrentTask.Target.Denominator.ToString();
         PartsText.Text = game.PartsCount.ToString();
         SelectedText.Text = $"Выбрано: {game.SelectedCount}/{game.PartsCount}";
         ScoreText.Text = $"Счёт: {game.Score}";
         HintPanel.IsVisible = game.Settings.Mode == LearningMode.Training;
         HintText.Text = CreateHint();
         StatusText.Text = "Нажимай на секторы, чтобы собрать нужную дробь.";
+        CheckButton.Content = "Проверить";
         DrawSectors();
     }
 
@@ -116,6 +120,11 @@ public partial class MainWindow : Window
 
     private void Sector_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
+        if (waitsForNextRound)
+        {
+            return;
+        }
+
         if (sender is not Polygon { Tag: int index })
         {
             return;
@@ -129,13 +138,20 @@ public partial class MainWindow : Window
 
     private void CheckButton_Click(object? sender, RoutedEventArgs e)
     {
+        if (waitsForNextRound)
+        {
+            game.NewRound();
+            UpdateScreen();
+            return;
+        }
+
         game.Check();
     }
 
     private void Game_RoundChecked(object? sender, GameRoundCheckedEventArgs e)
     {
         StatusText.Text = e.IsCorrect
-            ? $"Правильно: {e.Selected} = {game.CurrentTask.Target}. +10 очков."
+            ? $"Правильно: {e.Selected} = {game.CurrentTask.Target}. Нажми «Следующий пример»."
             : $"Пока нет: {e.Selected} не равна {game.CurrentTask.Target}.";
 
         foreach (var sector in sectors)
@@ -144,16 +160,28 @@ public partial class MainWindow : Window
         }
 
         ScoreText.Text = $"Счёт: {game.Score}";
+        waitsForNextRound = e.IsCorrect;
+        CheckButton.Content = e.IsCorrect ? "Следующий пример" : "Проверить";
     }
 
     private void DecreaseButton_Click(object? sender, RoutedEventArgs e)
     {
+        if (waitsForNextRound)
+        {
+            return;
+        }
+
         game.ChangeParts(-1);
         UpdateScreen();
     }
 
     private void IncreaseButton_Click(object? sender, RoutedEventArgs e)
     {
+        if (waitsForNextRound)
+        {
+            return;
+        }
+
         game.ChangeParts(1);
         UpdateScreen();
     }

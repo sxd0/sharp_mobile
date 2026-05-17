@@ -40,16 +40,50 @@
           <Button Classes="primary" Content="Добавить воду" Click="AddCustom_Click" />
 
           <Separator />
-          <TextBlock Text="Цель на день, мл" FontWeight="SemiBold" />
+          <TextBlock Text="Главная цель на день, мл" FontWeight="SemiBold" />
           <NumericUpDown x:Name="GoalInput" Minimum="500" Maximum="6000" Increment="100" Value="2000" />
-          <Button Content="Сохранить цель" Click="SaveGoal_Click" />
+          <Button Classes="goalAction" Content="Изменить главную цель" Click="SaveGoal_Click" />
+
+          <Separator />
+          <Button Content="Сбросить сегодня" Background="#EF4444" Foreground="White" FontWeight="Bold" Click="ResetToday_Click" />
         </StackPanel>
       </Border>
 
       <Border Grid.Column="1" Background="White" CornerRadius="8" Padding="18" Margin="18,0,0,0" BoxShadow="0 4 16 #22000000">
-        <Grid RowDefinitions="Auto,*">
-          <TextBlock Text="История за сегодня" FontSize="20" FontWeight="Bold" />
-          <ListBox x:Name="HistoryList" Grid.Row="1" Margin="0,14,0,0" />
+        <Grid RowDefinitions="Auto,310,*">
+          <TextBlock Text="Визуальный прогресс" FontSize="20" FontWeight="Bold" />
+
+          <Grid Grid.Row="1" Margin="0,12,0,18" ColumnDefinitions="*,170,*">
+            <Border Grid.Column="1"
+                    Width="122"
+                    Height="268"
+                    BorderBrush="#0E7490"
+                    BorderThickness="4"
+                    CornerRadius="34,34,18,18"
+                    Background="#F8FAFC"
+                    ClipToBounds="True"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+              <Grid>
+                <Border x:Name="BottleFill"
+                        Background="#38BDF8"
+                        VerticalAlignment="Bottom"
+                        Height="0" />
+                <TextBlock x:Name="BottleText"
+                           Text="0%"
+                           FontSize="26"
+                           FontWeight="Bold"
+                           Foreground="#0F172A"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+              </Grid>
+            </Border>
+          </Grid>
+
+          <Grid Grid.Row="2" RowDefinitions="Auto,*">
+            <TextBlock Text="История за сегодня" FontSize="20" FontWeight="Bold" />
+            <ListBox x:Name="HistoryList" Grid.Row="1" Margin="0,14,0,0" />
+          </Grid>
         </Grid>
       </Border>
     </Grid>

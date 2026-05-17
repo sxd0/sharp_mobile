@@ -13,5 +13,12 @@
       <Setter Property="CornerRadius" Value="8" />
       <Setter Property="Padding" Value="14,8" />
     </Style>
+    <Style Selector="Button.goalAction">
+      <Setter Property="Background" Value="#22C55E" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Padding" Value="14,8" />
+    </Style>
   </Application.Styles>
 </Application>

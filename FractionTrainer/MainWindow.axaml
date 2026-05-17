@@ -39,16 +39,21 @@
           </ComboBox>
 
           <Separator />
-          <TextBlock x:Name="TargetText" Text="Дробь: 1/2" FontSize="30" FontWeight="Bold" Foreground="#1D4ED8" HorizontalAlignment="Center" />
+          <TextBlock Text="Соберите дробь" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#3F3F46" />
+          <StackPanel HorizontalAlignment="Center" Spacing="0">
+            <TextBlock x:Name="NumeratorText" Text="1" FontSize="52" FontWeight="Bold" Foreground="#3F3F46" HorizontalAlignment="Center" />
+            <Border Width="58" Height="6" CornerRadius="3" Background="#25AEEA" HorizontalAlignment="Center" />
+            <TextBlock x:Name="DenominatorText" Text="2" FontSize="52" FontWeight="Bold" Foreground="#3F3F46" HorizontalAlignment="Center" />
+          </StackPanel>
           <TextBlock x:Name="SelectedText" Text="Выбрано: 0/4" FontSize="16" HorizontalAlignment="Center" />
 
           <Border Background="#EFF6FF" CornerRadius="8" Padding="12">
             <StackPanel Spacing="8">
               <TextBlock Text="Количество долей" FontWeight="SemiBold" HorizontalAlignment="Center" />
               <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-                <Button x:Name="DecreaseButton" Content="- доля" Click="DecreaseButton_Click" />
+                <Button x:Name="DecreaseButton" Classes="fractionAction" Content="- доля" Click="DecreaseButton_Click" />
                 <TextBlock x:Name="PartsText" Text="4" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" MinWidth="42" TextAlignment="Center" />
-                <Button x:Name="IncreaseButton" Content="+ доля" Click="IncreaseButton_Click" />
+                <Button x:Name="IncreaseButton" Classes="fractionAction" Content="+ доля" Click="IncreaseButton_Click" />
               </StackPanel>
             </StackPanel>
           </Border>
@@ -57,7 +62,7 @@
             <TextBlock x:Name="HintText" TextWrapping="Wrap" Foreground="#047857" />
           </Border>
 
-          <Button Content="Новая дробь" Click="NewRoundButton_Click" />
+          <Button x:Name="NewRoundButton" Content="Новая дробь" Click="NewRoundButton_Click" />
         </StackPanel>
       </Border>
 
@@ -69,7 +74,7 @@
     <Border Grid.Row="2" Background="#0F172A" Padding="22,14">
       <Grid ColumnDefinitions="*,Auto">
         <TextBlock x:Name="StatusText" Text="Нажимай на секторы, чтобы собрать нужную дробь." Foreground="White" FontSize="16" VerticalAlignment="Center" />
-        <Button Grid.Column="1" Classes="primary" Content="Проверить" Click="CheckButton_Click" />
+        <Button x:Name="CheckButton" Grid.Column="1" Classes="successAction" Content="Проверить" Click="CheckButton_Click" />
       </Grid>
     </Border>
   </Grid>
