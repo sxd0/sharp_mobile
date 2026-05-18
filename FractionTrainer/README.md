@@ -19,6 +19,10 @@
 dotnet run
 ```
 
+```bash
+dotnet run --project FractionTrainer
+```
+
 CLI-пример:
 
 ```bash

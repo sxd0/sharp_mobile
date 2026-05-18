@@ -21,6 +21,12 @@
 dotnet run
 ```
 
+либо
+
+```bash
+dotnet run --project WaterBalanceController
+```
+
 CLI-примеры:
 
 ```bash
